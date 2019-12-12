@@ -1,12 +1,13 @@
 package com.model;
 
 import com.utils.GetBlood;
+import com.utils.Tools;
 
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class TankClient extends Frame implements ActionListener {
 
@@ -18,6 +19,7 @@ public class TankClient extends Frame implements ActionListener {
 	public static final int Fram_length = 600;
 	public static boolean printable = true;
 	public boolean Player2=false;
+	public static boolean Welcome=true;
 	MenuBar jmb = null;
 	Menu jm1 = null, jm2 = null, jm3 = null, jm4 = null,jm5=null;
 	MenuItem jmi1 = null, jmi2 = null, jmi3 = null, jmi4 = null, jmi5 = null,
@@ -39,19 +41,21 @@ public class TankClient extends Frame implements ActionListener {
 	List<MetalWall> metalWall = new ArrayList<MetalWall>();
 
 	public void update(Graphics g) {
+		if (!Welcome){
+			screenImage = this.createImage(Fram_width, Fram_length);
 
-		screenImage = this.createImage(Fram_width, Fram_length);
+			Graphics gps = screenImage.getGraphics();
+			Color c = gps.getColor();
+			gps.setColor(Color.GRAY);
+			gps.fillRect(0, 0, Fram_width, Fram_length);
+			gps.setColor(c);
+			framePaint(gps);
+			g.drawImage(screenImage, 0, 0, null);
+		}
 
-		Graphics gps = screenImage.getGraphics();
-		Color c = gps.getColor();
-		gps.setColor(Color.GRAY);
-		gps.fillRect(0, 0, Fram_width, Fram_length);
-		gps.setColor(c);
-		framPaint(gps);
-		g.drawImage(screenImage, 0, 0, null);
 	}
 
-	public void framPaint(Graphics g) {
+	public void framePaint(Graphics g) {
 
 		Color c = g.getColor();
 		g.setColor(Color.green); 
@@ -253,7 +257,7 @@ public class TankClient extends Frame implements ActionListener {
 
 		jmi1 = new MenuItem("New Game");
 		jmi2 = new MenuItem("Exit");
-		jmi3 = new MenuItem("Stop");
+		jmi3 = new MenuItem("Pause");
 		jmi4 = new MenuItem("Continue");
 		jmi5 = new MenuItem("Help");
 		jmi6 = new MenuItem("Level1");
@@ -286,7 +290,7 @@ public class TankClient extends Frame implements ActionListener {
 		jmb.add(jm4);
 		jmb.add(jm5);
 		jmb.add(jm3);
-		
+
 
 		jmi1.addActionListener(this);
 		jmi1.setActionCommand("NewGame");
@@ -314,86 +318,99 @@ public class TankClient extends Frame implements ActionListener {
 		this.setMenuBar(jmb);
 		this.setVisible(true);
 
-		for (int i = 0; i < 10; i++) { 
-			if (i < 4)
-				homeWall.add(new CommonWall(350, 580 - 21 * i, this));
-			else if (i < 7)
-				homeWall.add(new CommonWall(372 + 22 * (i - 4), 517, this));
-			else
-				homeWall.add(new CommonWall(416, 538 + (i - 7) * 21, this));
+		if(!Welcome){
+			printable=true;
+			for (int i = 0; i < 10; i++) {
+				if (i < 4)
+					homeWall.add(new CommonWall(350, 580 - 21 * i, this));
+				else if (i < 7)
+					homeWall.add(new CommonWall(372 + 22 * (i - 4), 517, this));
+				else
+					homeWall.add(new CommonWall(416, 538 + (i - 7) * 21, this));
 
-		}
-
-		for (int i = 0; i < 32; i++) {
-			if (i < 16) {
-				otherWall.add(new CommonWall(200 + 21 * i, 300, this)); 
-				otherWall.add(new CommonWall(500 + 21 * i, 180, this));
-				otherWall.add(new CommonWall(200, 400 + 21 * i, this));
-				otherWall.add(new CommonWall(500, 400 + 21 * i, this));
-			} else if (i < 32) {
-				otherWall.add(new CommonWall(200 + 21 * (i - 16), 320, this));
-				otherWall.add(new CommonWall(500 + 21 * (i - 16), 220, this));
-				otherWall.add(new CommonWall(222, 400 + 21 * (i - 16), this));
-				otherWall.add(new CommonWall(522, 400 + 21 * (i - 16), this));
-			}
-		}
-
-		for (int i = 0; i < 20; i++) { 
-			if (i < 10) {
-				metalWall.add(new MetalWall(140 + 30 * i, 150, this));
-				metalWall.add(new MetalWall(600, 400 + 20 * (i), this));
-			} else if (i < 20)
-				metalWall.add(new MetalWall(140 + 30 * (i - 10), 180, this));
-			
-		}
-
-		for (int i = 0; i < 4; i++) { 
-			if (i < 4) {
-				trees.add(new Tree(0 + 30 * i, 360, this));
-				trees.add(new Tree(220 + 30 * i, 360, this));
-				trees.add(new Tree(440 + 30 * i, 360, this));
-				trees.add(new Tree(660 + 30 * i, 360, this));
 			}
 
+			for (int i = 0; i < 32; i++) {
+				if (i < 16) {
+					otherWall.add(new CommonWall(200 + 21 * i, 300, this));
+					otherWall.add(new CommonWall(500 + 21 * i, 180, this));
+					otherWall.add(new CommonWall(200, 400 + 21 * i, this));
+					otherWall.add(new CommonWall(500, 400 + 21 * i, this));
+				} else if (i < 32) {
+					otherWall.add(new CommonWall(200 + 21 * (i - 16), 320, this));
+					otherWall.add(new CommonWall(500 + 21 * (i - 16), 220, this));
+					otherWall.add(new CommonWall(222, 400 + 21 * (i - 16), this));
+					otherWall.add(new CommonWall(522, 400 + 21 * (i - 16), this));
+				}
+			}
+
+			for (int i = 0; i < 20; i++) {
+				if (i < 10) {
+					metalWall.add(new MetalWall(140 + 30 * i, 150, this));
+					metalWall.add(new MetalWall(600, 400 + 20 * (i), this));
+				} else if (i < 20)
+					metalWall.add(new MetalWall(140 + 30 * (i - 10), 180, this));
+
+			}
+
+			for (int i = 0; i < 4; i++) {
+				if (i < 4) {
+					trees.add(new Tree(0 + 30 * i, 360, this));
+					trees.add(new Tree(220 + 30 * i, 360, this));
+					trees.add(new Tree(440 + 30 * i, 360, this));
+					trees.add(new Tree(660 + 30 * i, 360, this));
+				}
+
+			}
+
+			theRiver.add(new River(85, 100, this));
+
+			for (int i = 0; i < 20; i++) {
+				if (i < 9)
+					tanks.add(new Tank(150 + 70 * i, 40, false, Direction.D, this,0));
+				else if (i < 15)
+					tanks.add(new Tank(700, 140 + 50 * (i - 6), false, Direction.D,
+							this,0));
+				else
+					tanks
+							.add(new Tank(10, 50 * (i - 12), false, Direction.D,
+									this,0));
+			}
+
+			this.setSize(Fram_width, Fram_length);
+			this.setLocation(500, 260);
+			this.setTitle("TankBattle");
+
+			this.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent e) {
+					System.exit(0);
+				}
+			});
+			this.setResizable(false);
+			this.setBackground(Color.GRAY);
+			this.setVisible(true);
+
+			this.addKeyListener(new KeyMonitor());
+			new Thread(new PaintThread()).start();
 		}
+		else{
+			printable=false;
+			JLabel jLabel=new JLabel();
+			Tools.cgJLabelImg(jLabel, TankClient.class.getResource("/Images/welcome.png"));
+			this.add(jLabel);
+			this.setSize(800,550);
+			this.setLocation(500, 260);
+			this.setTitle("TankBattle");
 
-		theRiver.add(new River(85, 100, this));
-
-		for (int i = 0; i < 20; i++) {
-			if (i < 9) 
-				tanks.add(new Tank(150 + 70 * i, 40, false, Direction.D, this,0));
-			else if (i < 15)
-				tanks.add(new Tank(700, 140 + 50 * (i - 6), false, Direction.D,
-						this,0));
-			else
-				tanks
-						.add(new Tank(10, 50 * (i - 12), false, Direction.D,
-								this,0));
+			this.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent e) {
+					System.exit(0);
+				}
+			});
 		}
-
-		this.setSize(Fram_width, Fram_length);
-		this.setLocation(280, 50); 
-		this
-				.setTitle("Battle City    Final Project for CPE 640");
-
-		this.addWindowListener(new WindowAdapter() { 
-					public void windowClosing(WindowEvent e) {
-						System.exit(0);
-					}
-				});
-		this.setResizable(false);
-		this.setBackground(Color.GREEN);
-		this.setVisible(true);
-
-		this.addKeyListener(new KeyMonitor());
-		new Thread(new PaintThread()).start(); 
 	}
 
-	public static void main(String[] args) {
-		new TankClient();
-	}
-
-	private class PaintThread implements Runnable {
+	private class PaintThread implements Runnable {    //½øÐÐÖØ¸´»æÍ¼
 		public void run() {
 			// TODO Auto-generated method stub
 			while (printable) {
@@ -425,10 +442,20 @@ public class TankClient extends Frame implements ActionListener {
 
 		if (e.getActionCommand().equals("NewGame")) {
 			printable = false;
+
 			Object[] options = { "Confirm", "Cancel" };
-			int response = JOptionPane.showOptionDialog(this, "Confirm to start a new game?", "",
-					JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-					options, options[0]);
+			int response;
+			if (!Welcome){
+				response = JOptionPane.showOptionDialog(this, "Confirm to start a new game?", "",
+						JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+						options, options[0]);
+			}
+			else{
+				response = 0;
+				Welcome = false;
+			}
+
+
 			if (response == 0) {
 
 				printable = true;
@@ -436,7 +463,7 @@ public class TankClient extends Frame implements ActionListener {
 				new TankClient();
 			} else {
 				printable = true;
-				new Thread(new PaintThread()).start(); 
+				new Thread(new PaintThread()).start();
 			}
 
 		} else if (e.getActionCommand().endsWith("Stop")) {
