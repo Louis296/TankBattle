@@ -41,7 +41,7 @@ public class Tank {
 				tk.getImage(BombTank.class.getResource("/Images/HtankU2.gif")),
 				tk.getImage(BombTank.class.getResource("/Images/HtankL2.gif")),
 				tk.getImage(BombTank.class.getResource("/Images/HtankR2.gif")),
-				};
+			};
 
 	}
 
@@ -67,8 +67,8 @@ public class Tank {
 			}
 			return;
 		}
-		//if (good)
-			//new DrawBloodbBar().draw(g); 
+		if (good)
+			new DrawBloodbBar().draw(g);
 		switch (Kdirection) {
 							
 		case D:
@@ -77,28 +77,34 @@ public class Tank {
 			else if(tc.Player2&&player==2){
 				g.drawImage(tankImags[8], x, y, null);
 			}else{
-			g.drawImage(tankImags[0], x, y, null);}
+				g.drawImage(tankImags[0], x, y, null);
+			}
 			break;
 
 		case U:
-			if(player==1){	g.drawImage(tankImags[5], x, y, null);
+			if(player==1){
+				g.drawImage(tankImags[5], x, y, null);
 			}else if(tc.Player2&&player==2){
 				g.drawImage(tankImags[9], x, y, null);
 			}else{
-			g.drawImage(tankImags[1], x, y, null);}
+				g.drawImage(tankImags[1], x, y, null);}
 			break;
-		case L:if(player==1){	g.drawImage(tankImags[6], x, y, null);
-		}else if(tc.Player2&&player==2){
-			g.drawImage(tankImags[10], x, y, null);
-		}else{
-			g.drawImage(tankImags[2], x, y, null);}
+		case L:
+			if(player==1){
+				g.drawImage(tankImags[6], x, y, null);
+			}else if(tc.Player2&&player==2){
+				g.drawImage(tankImags[10], x, y, null);
+			}else{
+				g.drawImage(tankImags[2], x, y, null);}
 			break;
 
-		case R:if(player==1){	g.drawImage(tankImags[7], x, y, null);
-		}else if(tc.Player2&&player==2){
-			g.drawImage(tankImags[11], x, y, null);
-		}else{
-			g.drawImage(tankImags[3], x, y, null);}
+		case R:
+			if(player==1){
+				g.drawImage(tankImags[7], x, y, null);
+			}else if(tc.Player2&&player==2){
+				g.drawImage(tankImags[11], x, y, null);
+			}else{
+				g.drawImage(tankImags[3], x, y, null);}
 			break;
 
 		}
@@ -132,25 +138,33 @@ public class Tank {
 			this.Kdirection = this.direction;
 		}
 
+		//坦克不能超出边界
 		if (x < 0)
 			x = 0;
-		if (y < 40)     
+		if (y < 40)
 			y = 40;
-		if (x + Tank.width > TankClient.Fram_width)  
+		if (x + Tank.width > TankClient.Fram_width)
 			x = TankClient.Fram_width - Tank.width;
 		if (y + Tank.length > TankClient.Fram_length)
 			y = TankClient.Fram_length - Tank.length;
 
+		//一个由多层决策实现的敌方坦克寻路算法
 		if (!good) {
 			Direction[] directons = Direction.values();
-			if (step == 0) {                  
-				step = r.nextInt(12) + 3;  
+			if (step == 0) {
+				step = r.nextInt(12) + 3;
 				int mod=r.nextInt(9);
 				if (playertankaround()){
-					if(x==tc.homeTank.x){ if(y>tc.homeTank.y) direction=directons[1];
-					else if (y<tc.homeTank.y) direction=directons[3];
-					}else if(y==tc.homeTank.y){ if(x>tc.homeTank.x) direction=directons[0];
-					else if (x<tc.homeTank.x) direction=directons[2];
+					if(x==tc.homeTank.x){
+						if(y>tc.homeTank.y)
+							direction=directons[1];
+						else if (y<tc.homeTank.y)
+							direction=directons[3];
+					}else if(y==tc.homeTank.y){
+						if(x>tc.homeTank.x)
+							direction=directons[0];
+						else if (x<tc.homeTank.x)
+							direction=directons[2];
 					}
 					else{
 						int rn = r.nextInt(directons.length);
@@ -174,15 +188,17 @@ public class Tank {
 				this.fire();
 		}
 	}
+
+	//判断已方坦克是否在附近
 	public boolean playertankaround(){
 		int rx=x-15,ry=y-15;
 		if((x-15)<0) rx=0;
 		if((y-15)<0)ry=0;
 		Rectangle a=new Rectangle(rx, ry,60,60);
 		if (this.live && a.intersects(tc.homeTank.getRect())) {
-		return true;	
+			return true;
 		}
-		return false;	
+		return false;
 	}
 	public int getzone(int x,int y){
 		int tempx=x;
@@ -238,7 +254,7 @@ public class Tank {
 			}
 			
 			tc.homeTank = new Tank(300, 560, true, Direction.STOP, tc,0);
-			if (!tc.home.isLive()) 
+			if (!tc.home.isLive())
 				tc.home.setLive(true);
 			TankClient abc=new TankClient();
 			if (tc.Player2) abc.Player2=true;
@@ -359,7 +375,7 @@ public class Tank {
 		int x = this.x + Tank.width / 2 - Bullets.width / 2; 
 		int y = this.y + Tank.length / 2 - Bullets.length / 2;
 		Bullets m = new Bullets(x, y + 2, good, Kdirection, this.tc); 
-		tc.bullets.add(m);                                                
+		tc.bullets.add(m);
 		return m;
 	}
 
@@ -380,6 +396,8 @@ public class Tank {
 		return good;
 	}
 
+
+	//靠近其它物体时不能移动
 	public boolean collideWithWall(CommonWall w) {  
 		if (this.live && this.getRect().intersects(w.getRect())) {
 			 this.changToOldDir();    

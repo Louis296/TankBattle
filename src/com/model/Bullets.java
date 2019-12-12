@@ -135,6 +135,8 @@ public class Bullets {
 		return false;
 	}
 
+
+	//¹¥»÷ÅÐ¶¨
 	public boolean hitTank(Tank t) { 
 
 		if (this.live && this.getRect().intersects(t.getRect()) && t.isLive()
@@ -142,17 +144,17 @@ public class Bullets {
 
 			BombTank e = new BombTank(t.getX(), t.getY(), tc);
 			tc.bombTanks.add(e);
-			if (t.isGood()) {
+			if (t.isGood()){
 				t.setLife(t.getLife() - 50); 
 				if (t.getLife() <= 0)
-					t.setLive(false); 
-			} else {
-				t.setLive(false); 
+					t.setLive(false);
+			}else{
+				t.setLive(false);
 			}
 
 			this.live = false;
 
-			return true; 
+			return true;
 		}
 		return false;
 	}

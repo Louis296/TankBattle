@@ -215,8 +215,10 @@ public class TankClient extends Frame implements ActionListener {
 
 		homeTank.collideWithTanks(tanks);
 		homeTank.collideHome(home);
-		if (Player2) {homeTank2.collideWithTanks(tanks);
-		homeTank2.collideHome(home);}
+		if (Player2) {
+			homeTank2.collideWithTanks(tanks);
+			homeTank2.collideHome(home);
+		}
 
 		for (int i = 0; i < metalWall.size(); i++) {
 			MetalWall w = metalWall.get(i);
