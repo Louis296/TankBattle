@@ -39,7 +39,7 @@ public class TankClient extends Frame implements ActionListener {
 	List<BombTank> bombTanks = new ArrayList<BombTank>();
 	List<Bullets> bullets = new ArrayList<Bullets>();
 	List<Tree> trees = new ArrayList<Tree>();
-	List<CommonWall> homeWall = new ArrayList<CommonWall>();
+	public static List<CommonWall> homeWall = new ArrayList<CommonWall>();
 	List<CommonWall> otherWall = new ArrayList<CommonWall>();
 	List<MetalWall> metalWall = new ArrayList<MetalWall>();
 
@@ -606,9 +606,12 @@ public class TankClient extends Frame implements ActionListener {
 		public void keyPressed(KeyEvent e) {
 			homeTank.keyPressed(e);
 			homeTank2.keyPressed(e);
+
 		}
 
 	}
+
+
 
 	public void actionPerformed(ActionEvent e) {
 
@@ -640,13 +643,7 @@ public class TankClient extends Frame implements ActionListener {
 
 		} else if (e.getActionCommand().endsWith("Stop")) {
 			printable = false;
-			// try {
-			// Thread.sleep(10000);
-			//
-			// } catch (InterruptedException e1) {
-			// // TODO Auto-generated catch block
-			// e1.printStackTrace();
-			// }
+
 		} else if (e.getActionCommand().equals("Continue")) {
 
 			if (!printable) {
@@ -686,7 +683,10 @@ public class TankClient extends Frame implements ActionListener {
 		}
 		else if (e.getActionCommand().equals("help")) {
 			printable = false;
-			JOptionPane.showMessageDialog(null, "Use WSAD to control Player1's direction, use F to fire and restart with pressing R\nUse diection key to Control Player2, use slash to fire",
+			JOptionPane.showMessageDialog(null,
+					"Use WSAD to control Player1's direction,"+
+							" use F to fire and restart with pressing R\nUse diection key to Control Player2,"+
+							" use slash to fire\n按下K释放全屏弹幕大招（cd20秒）",
 					"Help", JOptionPane.INFORMATION_MESSAGE);
 			this.setVisible(true);
 			printable = true;
@@ -798,7 +798,7 @@ public class TankClient extends Frame implements ActionListener {
 
 		}
 
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 20; i++) {
 			if (i < 9)
 				tanks.add(new Tank(150 + 70 * i, 40, false, Direction.D, this,0));
 			else if (i < 15)
