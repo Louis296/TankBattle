@@ -1,6 +1,8 @@
 package com.frame;
 
 import javax.swing.*;
+
+import com.music.Play;
 import com.utils.*;
 
 import java.awt.*;
@@ -26,5 +28,6 @@ public class WelcomeFrame extends JFrame {
             e.printStackTrace();
         }
         this.setVisible(false);
+       // new Play("D:\\Java\\TankBattle\\music\\bgm.mp3").start();
     }
 }

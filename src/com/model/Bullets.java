@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.music.*;
 
 public class Bullets {
 	public static  int speedX = 12;
@@ -141,10 +142,10 @@ public class Bullets {
 
 		if (this.live && this.getRect().intersects(t.getRect()) && t.isLive()
 				&& this.good != t.isGood()) {
-
+			new Play("D:\\Java\\TankBattle\\music\\bomb.mp3").start();
 			BombTank e = new BombTank(t.getX(), t.getY(), tc);
 			tc.bombTanks.add(e);
-
+			//new Play("D:\\Java\\TankBattle\\music\\bomb.wav").start();
 			if (t.isGood()){
 				t.setLife(t.getLife() - 50); 
 				if (t.getLife() <= 0)

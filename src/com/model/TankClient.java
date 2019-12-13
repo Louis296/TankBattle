@@ -2,7 +2,7 @@ package com.model;
 
 import com.utils.GetBlood;
 import com.utils.Tools;
-
+import com.music.*;
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
@@ -273,11 +273,11 @@ public class TankClient extends Frame implements ActionListener {
 	public TankClient(){
 
 		jmb = new MenuBar();
-		jm1 = new Menu("Game");
-		jm2 = new Menu("Pause/Continue");
-		jm3 = new Menu("Help");
-		jm4 = new Menu("Level");
-		jm5 = new Menu("Addition");
+		jm1 = new Menu("游戏");
+		jm2 = new Menu("暂停/继续");
+		jm3 = new Menu("帮助");
+		jm4 = new Menu("难度");
+		jm5 = new Menu("其它选项");
 		jm6 = new Menu("关卡");
 
 		jm1.setFont(new Font("Times New Roman", Font.BOLD, 15));
@@ -287,17 +287,17 @@ public class TankClient extends Frame implements ActionListener {
 		jm5.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		jm6.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
-		jmi1 = new MenuItem("New Game");
-		jmi2 = new MenuItem("Exit");
-		jmi3 = new MenuItem("Stop");
-		jmi4 = new MenuItem("Continue");
-		jmi5 = new MenuItem("Help");
-		jmi6 = new MenuItem("Level1");
-		jmi7 = new MenuItem("Level2");
-		jmi8 = new MenuItem("Level3");
-		jmi9 = new MenuItem("Level4");
-		jmi10 = new MenuItem("Add Player 2");
-		jmi11 = new MenuItem("Join other's game");
+		jmi1 = new MenuItem("新的游戏");
+		jmi2 = new MenuItem("退出");
+		jmi3 = new MenuItem("暂停");
+		jmi4 = new MenuItem("继续");
+		jmi5 = new MenuItem("帮助");
+		jmi6 = new MenuItem("难度1");
+		jmi7 = new MenuItem("难度2");
+		jmi8 = new MenuItem("难度3");
+		jmi9 = new MenuItem("难度4");
+		jmi10 = new MenuItem("添加玩家2");
+		jmi11 = new MenuItem("加入其他游戏");
 		jmi12 = new MenuItem("关卡一");
 		jmi13 = new MenuItem("关卡二");
 		jmi14 = new MenuItem("关卡三");
@@ -429,11 +429,11 @@ public class TankClient extends Frame implements ActionListener {
 
 
 		jmb = new MenuBar();
-		jm1 = new Menu("Game");
-		jm2 = new Menu("Pause/Continue");
-		jm3 = new Menu("Help");
-		jm4 = new Menu("Level");
-		jm5 = new Menu("Addition");
+		jm1 = new Menu("游戏");
+		jm2 = new Menu("暂停/继续");
+		jm3 = new Menu("帮助");
+		jm4 = new Menu("难度");
+		jm5 = new Menu("其它选项");
 		jm6 = new Menu("关卡");
 
 		jm1.setFont(new Font("Times New Roman", Font.BOLD, 15));
@@ -443,17 +443,17 @@ public class TankClient extends Frame implements ActionListener {
 		jm5.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		jm6.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
-		jmi1 = new MenuItem("New Game");
-		jmi2 = new MenuItem("Exit");
-		jmi3 = new MenuItem("Stop");
-		jmi4 = new MenuItem("Continue");
-		jmi5 = new MenuItem("Help");
-		jmi6 = new MenuItem("Level1");
-		jmi7 = new MenuItem("Level2");
-		jmi8 = new MenuItem("Level3");
-		jmi9 = new MenuItem("Level4");
-		jmi10 = new MenuItem("Add Player 2");
-		jmi11 = new MenuItem("Join other's game");
+		jmi1 = new MenuItem("新的游戏");
+		jmi2 = new MenuItem("退出");
+		jmi3 = new MenuItem("暂停");
+		jmi4 = new MenuItem("继续");
+		jmi5 = new MenuItem("帮助");
+		jmi6 = new MenuItem("难度1");
+		jmi7 = new MenuItem("难度2");
+		jmi8 = new MenuItem("难度3");
+		jmi9 = new MenuItem("难度4");
+		jmi10 = new MenuItem("添加玩家2");
+		jmi11 = new MenuItem("加入其他游戏");
 		jmi12 = new MenuItem("关卡一");
 		jmi13 = new MenuItem("关卡二");
 		jmi14 = new MenuItem("关卡三");
@@ -684,9 +684,9 @@ public class TankClient extends Frame implements ActionListener {
 		else if (e.getActionCommand().equals("help")) {
 			printable = false;
 			JOptionPane.showMessageDialog(null,
-					"Use WSAD to control Player1's direction,"+
-							" use F to fire and restart with pressing R\nUse diection key to Control Player2,"+
-							" use slash to fire\n按下K释放全屏弹幕大招（cd20秒）",
+					"使用WASD来控制玩家1的移动\n"+
+							"按J进行射击，按R重新开始\n用方向键控制玩家2的移动"+
+							"按/进行射击\n按下K释放全屏弹幕大招（cd20秒）",
 					"Help", JOptionPane.INFORMATION_MESSAGE);
 			this.setVisible(true);
 			printable = true;
@@ -755,7 +755,6 @@ public class TankClient extends Frame implements ActionListener {
 	}
 
 	public void Firstmap(){
-
 		for (int i = 0; i < 10; i++) {
 			if (i < 4)
 				homeWall.add(new CommonWall(350, 580 - 21 * i, this));
