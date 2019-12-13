@@ -20,8 +20,8 @@ public class Tank {
 	private int life = 200;
 	private int rate=1;
 	private static Random r = new Random();
-	private int step = r.nextInt(10)+5 ; 
-
+	private int step = r.nextInt(10)+5 ;
+	public static boolean bombcdflag=false;
 	private boolean bL = false, bU = false, bR = false, bD = false;
 	
 
@@ -318,26 +318,30 @@ public class Tank {
 		int key = e.getKeyCode();
 		if (player==1){
 		switch (key) {
-		
-		case KeyEvent.VK_F:
-			fire();
-			break;
+
+			case KeyEvent.VK_K:
+				bomb();
+				break;
+
+			case KeyEvent.VK_F:
+				fire();
+				break;
 			
-		case KeyEvent.VK_D:
-			bR = false;
-			break;
+			case KeyEvent.VK_D:
+				bR = false;
+				break;
 		
-		case KeyEvent.VK_A:
-			bL = false;
-			break;
+			case KeyEvent.VK_A:
+				bL = false;
+				break;
 		
-		case KeyEvent.VK_W:
-			bU = false;
-			break;
+			case KeyEvent.VK_W:
+				bU = false;
+				break;
 		
-		case KeyEvent.VK_S:
-			bD = false;
-			break;
+			case KeyEvent.VK_S:
+				bD = false;
+				break;
 			
 
 		}}
@@ -379,6 +383,32 @@ public class Tank {
 		return m;
 	}
 
+	public void bomb(){
+		if(live&&!bombcdflag){
+			for (int i=0;i<=20;i++){
+				int x = (int)(Math.random()*1000);
+				int y = (int)(Math.random()*510);
+				Bullets m = new Bullets(x, y + 2, good, Kdirection, this.tc);
+				tc.bullets.add(m);
+			}
+			new Thread(new BombCD()).start();
+		}
+	}
+
+	class BombCD implements Runnable{
+		@Override
+		public void run() {
+			try{
+				bombcdflag=true;
+				Thread.sleep(20000);
+				bombcdflag=false;
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+
+
+		}
+	}
 
 	public Rectangle getRect() {
 		return new Rectangle(x, y, width, length);
