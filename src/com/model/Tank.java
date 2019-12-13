@@ -23,7 +23,7 @@ public class Tank {
 	private int step = r.nextInt(10)+5 ;
 	public static boolean bombcdflag=false;
 	private boolean bL = false, bU = false, bR = false, bD = false;
-	
+
 
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] tankImags = null;
@@ -104,7 +104,8 @@ public class Tank {
 			}else if(tc.Player2&&player==2){
 				g.drawImage(tankImags[11], x, y, null);
 			}else{
-				g.drawImage(tankImags[3], x, y, null);}
+				g.drawImage(tankImags[3], x, y, null);
+			}
 			break;
 
 		}
@@ -323,22 +324,22 @@ public class Tank {
 				bomb();
 				break;
 
-			case KeyEvent.VK_F:
+			case KeyEvent.VK_J:
 				fire();
 				break;
 			
 			case KeyEvent.VK_D:
 				bR = false;
 				break;
-		
+
 			case KeyEvent.VK_A:
 				bL = false;
 				break;
-		
+
 			case KeyEvent.VK_W:
 				bU = false;
 				break;
-		
+
 			case KeyEvent.VK_S:
 				bD = false;
 				break;
