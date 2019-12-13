@@ -547,7 +547,6 @@ public class TankClient extends Frame implements ActionListener {
 					Fifthmap();
 					break;
 			}
-
 			this.setSize(Fram_width, Fram_length);
 			this.setLocation(500, 260);
 			this.setTitle("TankBattle");
